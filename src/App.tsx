@@ -11,8 +11,10 @@ function App() {
   const { products, loading, error } = useProducts();
 
   const handleAddToCart = (product: IProduct) => {
-    if(cart.length>0){
-      const isProductInCart = cart.some((car: IProduct) => car.id === product.id);
+    if (cart.length > 0) {
+      const isProductInCart = cart.some(
+        (car: IProduct) => car.id === product.id,
+      );
       if (isProductInCart) {
         setModalVisible(true);
         setMsg(`${product.name} is already in the cart`);
@@ -29,7 +31,7 @@ function App() {
     const findProduct = cart.find((car: IProduct) => car.id === Id);
     setCart(updatedCart);
     setModalVisible(true);
-     setMsg(`${findProduct?.name} is removed from the cart`);
+    setMsg(`${findProduct?.name} is removed from the cart`);
   };
 
   const handleSort = () => {
@@ -47,24 +49,25 @@ function App() {
   return (
     <>
       <div id="online-shopping">
-        {modalVisible && 
-        <ModalComponent 
-        msg={msg} 
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        />}
+        {modalVisible && (
+          <ModalComponent
+            msg={msg}
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+          />
+        )}
         <h1>Online Shopping</h1>
         <h3>Available Products</h3>
-      {loading && <p>Loading products...</p>}
-      {error && <p role="alert">{error}</p>}
-      {products.map((product) => (
-        <div id="products-row" key={product.id}>
-          {`${product.name} Rs. ${product.price} `}
-          <button id="addItem" onClick={() => handleAddToCart(product)}>
-            Add to Cart
-          </button>
-        </div>
-      ))}
+        {loading && <p>Loading products...</p>}
+        {error && <p role="alert">{error}</p>}
+        {products.map((product) => (
+          <div id="products-row" key={product.id}>
+            {`${product.name} Rs. ${product.price} `}
+            <button id="addItem" onClick={() => handleAddToCart(product)}>
+              Add to Cart
+            </button>
+          </div>
+        ))}
         <h3>My Cart</h3>
         {cart.map((car: IProduct, index: number) => {
           return (
@@ -76,8 +79,11 @@ function App() {
             </div>
           );
         })}
-        {cart.length >0 && (
-          <h3 style={{ display:"flex", justifyContent: "end" }}>Total Price: Rs. {cart.reduce((total, product) => total + product.price, 0)}</h3>
+        {cart.length > 0 && (
+          <h3 style={{ display: "flex", justifyContent: "end" }}>
+            Total Price: Rs.{" "}
+            {cart.reduce((total, product) => total + product.price, 0)}
+          </h3>
         )}
         <h3>Actions</h3>
         <button
