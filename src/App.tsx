@@ -3,6 +3,7 @@ import "./App.css";
 import ModalComponent from "./modalComponent";
 import type { IProduct } from "./types";
 import useProducts from "./useProducts";
+import { Counter } from "./Counter";
 
 function App() {
   const [cart, setCart] = useState<IProduct[]>([]);
@@ -55,16 +56,16 @@ function App() {
         />}
         <h1>Online Shopping</h1>
         <h3>Available Products</h3>
-      {loading && <p>Loading products...</p>}
-      {error && <p role="alert">{error}</p>}
-      {products.map((product) => (
-        <div id="products-row" key={product.id}>
-          {`${product.name} Rs. ${product.price} `}
-          <button id="addItem" onClick={() => handleAddToCart(product)}>
-            Add to Cart
-          </button>
-        </div>
-      ))}
+        {loading && <p>Loading products...</p>}
+        {error && <p role="alert">{error}</p>}
+        {products.map((product) => (
+          <div id="products-row" key={product.id}>
+            {`${product.name} Rs. ${product.price} `}
+            <button id="addItem" onClick={() => handleAddToCart(product)}>
+              Add to Cart
+            </button>
+          </div>
+        ))}
         <h3>My Cart</h3>
         {cart.map((car: IProduct, index: number) => {
           return (
@@ -101,6 +102,7 @@ function App() {
         >
           Clear Cart
         </button>
+        <Counter />
       </div>
     </>
   );
